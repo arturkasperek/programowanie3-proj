@@ -1,0 +1,9 @@
+poker-app:
+  build: .
+  container_name: poker-app
+  ports:
+    - "3000:3000"
+  volumes:
+    - .:/usr/src/app
+  environment:
+    ENV: DEV
