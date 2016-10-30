@@ -3,6 +3,7 @@ poker-app:
   container_name: poker-app
   ports:
     - "3000:3000"
+    - "3002:3002"
   volumes:
     - .:/usr/src/app
   environment:

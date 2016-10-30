@@ -45,6 +45,7 @@ VOLUME /usr/src/app
 WORKDIR /usr/src/app
 
 EXPOSE 3000
+EXPOSE 3002
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod 777 /entrypoint.sh
 COPY package.json .

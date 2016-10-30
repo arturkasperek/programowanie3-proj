@@ -4,11 +4,12 @@ console.log(__dirname);
 module.exports = {
   context: __dirname,
   entry: [
-    'babel-polyfill', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', './frontend/main.js',
+    'babel-polyfill', 'webpack-hot-middleware/client?path=http://localhost:3002/__webpack_hmr&timeout=20000', './frontend/main.js',
   ],
   output: {
     path: __dirname + '/public',
-    filename: 'build/bundle.js'
+    filename: 'build/bundle.js',
+    publicPath: 'http://localhost:3002/'
   },
   module: {
     loaders: [
