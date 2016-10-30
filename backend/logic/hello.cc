@@ -25,6 +25,8 @@ void testMongo() {
     document << "hello" << "world";
 
     collection.insert_one(document.view());
+    collection.insert_one(document.view());
+    collection.insert_one(document.view());
     auto cursor = collection.find({});
 
     for (auto&& doc : cursor) {
@@ -36,6 +38,7 @@ void Method(const FunctionCallbackInfo<Value>& args) {
   Isolate* isolate = args.GetIsolate();
   std::cout << &isolate;
   std::cout << "tu jestem :)";
+  testMongo();
   args.GetReturnValue().Set(String::NewFromUtf8(isolate, "world is"));
 }
 

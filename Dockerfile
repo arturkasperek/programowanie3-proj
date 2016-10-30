@@ -32,15 +32,19 @@ WORKDIR mongo-cxx-driver-r3.0.1/build
 RUN cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local ..
 RUN make && make install
 
+#install mongodb
+RUN mkdir -p /data/db
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+RUN echo "deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.2 main" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+RUN apt-get update
+RUN apt-get install -y mongodb-org
+
 # Create app directory
 RUN mkdir -p /usr/src/app
 VOLUME /usr/src/app
 WORKDIR /usr/src/app
 
 EXPOSE 3000
-RUN echo '321'
-RUN ls
-RUN pwd
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod 777 /entrypoint.sh
 COPY package.json .

@@ -1,0 +1,31 @@
+.player {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  text-align: center;
+
+  .player-info {
+    width: 100%;
+    background-color: rgba(black, 0.7);
+    border-radius: 1em;
+    color: white;
+
+    .name {
+      font-weight: bold;
+    }
+
+    .chips {
+
+    }
+  }
+
+  &.me {
+    bottom: 0;
+    margin-bottom: 1em;
+  }
+
+  &.oponent {
+    margin-top: 1em;
+    top: 0;
+  }
+}
