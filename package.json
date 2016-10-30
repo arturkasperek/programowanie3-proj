@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-logic": "node-gyp configure build",
-    "dev": "node backend/server/app.js"
+    "dev": "npm run frontend-dev & npm run backend-dev",
+    "frontend-dev": "node webpackDevServer.js",
+    "backend-dev": "nodemon"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +25,7 @@
     "node-gyp": "^3.4.0",
     "node-sass": "^3.10.1",
     "nodemon": "^1.11.0",
+    "request": "^2.76.0",
     "resolve-url-loader": "^1.6.0",
     "sass-loader": "^4.0.2",
     "source-map-support": "^0.4.5",

@@ -2,7 +2,7 @@
   "targets": [
     {
       "target_name": "addon",
-      "sources": [ "backend/logic/hello.cc" ],
+      "sources": [ "backend/logic/hello.cpp" ],
       "include_dirs": [
         "include", "/usr/local/include/mongocxx/v_noabi",
         "include", "/usr/local/include/libmongoc-1.0",

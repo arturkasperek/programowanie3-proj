@@ -1,0 +1,8 @@
+{
+  "verbose": false,
+  "legacyWatch": true,
+  "watch": [
+    "backend"
+  ],
+  "exec": "npm run build-logic && node backend/server/app.js"
+}
