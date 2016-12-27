@@ -1,0 +1,1 @@
+cmd_Debug/obj.target/addon.node := g++ -shared -pthread -rdynamic -m64  -Wl,-soname=addon.node -o Debug/obj.target/addon.node -Wl,--start-group Debug/obj.target/addon/backend/logic/hello.o -Wl,--end-group -lmysqlcppconn -L/usr/lib

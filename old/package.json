@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-logic": "node-gyp configure build",
+    "build-logic": "node-gyp -d configure build",
     "dev": "npm run frontend-dev & npm run backend-dev",
     "frontend-dev": "node webpackDevServer.js",
-    "backend-dev": "nodemon"
+    "backend-dev": "nodemon -e h,cpp,js"
   },
   "author": "",
   "license": "ISC",

@@ -8,7 +8,7 @@ export default Vue.extend({
     <div class="poker-table">
         <player v-bind:cards="['w3', 'sk']" type="me"></player>
         <player v-bind:cards="['back', 'back']" type="oponent"></player>
-        <croupier v-bind:cards="['wa', 'sa', 'da']"></croupier>
+        <croupier v-bind:cards="['wa', 'wa', 'da']"></croupier>
     </div>
   `,
   components: {
