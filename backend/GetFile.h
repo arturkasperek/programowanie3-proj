@@ -9,7 +9,6 @@ using namespace std;
 string GetFile(string fileName) {
     ifstream resourceStream(fileName.c_str());
 
-    cout << "no ti " << fileName << endl;
     if (resourceStream.good()) {
         std::stringstream buffer;
         string content;
@@ -19,7 +18,7 @@ string GetFile(string fileName) {
         return content;
     }
     else {
-        throw "File not exists";
+        throw "'" + fileName + "' file not exists";
     }
 }
 

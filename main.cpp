@@ -1,4 +1,7 @@
 #include "backend/Server.h"
+#include "backend/routes/Register.h"
+#include "backend/Env.h"
+#include "backend/DatabaseController.h"
 
 #include <iostream>
 #include <string>
@@ -12,7 +15,23 @@ using namespace std;
 
 int main() {
     //HttpServer server(8080, 1);
+    auto test = new Register();
+    DatabaseController* databaseController;
+    Env* env;
+
     auto server = new Server();
+
+    try {
+        env = new Env();
+    } catch (string err) {
+        cout << "We can't init env of app" << endl;
+        cout << err << endl;
+        return 1;
+    }
+
+    databaseController = new DatabaseController(env->get("DB_PORT"), env->get("DB_LOGIN"), env->get("DB_PASSWORD"));
+
+
 
     server->get("/test", []( std::shared_ptr<Request> request, std::shared_ptr<Response> response ) {
         response->openFile("public/index.html");
@@ -58,6 +77,6 @@ int main() {
 
     server->serveStatic("public");
     server->start();
-    std::cout << "Hello, World dupa!" << std::endl;
+
     return 0;
 }

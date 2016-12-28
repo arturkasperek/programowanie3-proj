@@ -3,3 +3,4 @@
 /build
 npm-debug*
 facebook_dwa_zero
+.env
