@@ -10,6 +10,7 @@
 #include "../library/server_http.h"
 #include "./Response.h"
 #include "./Request.h"
+#include "./GetFile.h"
 
 typedef SimpleWeb::Server<SimpleWeb::HTTP> HttpServer;
 typedef HttpServer::Response HttpResponse;
@@ -38,7 +39,7 @@ public:
     void serveStatic(std::string pathToStatic) {
         std::regex indexRequestRegex("/$");
 
-        server->resource["^/"]["GET"] = [pathToStatic, indexRequestRegex](std::shared_ptr<HttpResponse> response, std::shared_ptr<HttpRequest> request) {
+        server->default_resource["GET"] = [pathToStatic, indexRequestRegex](std::shared_ptr<HttpResponse> response, std::shared_ptr<HttpRequest> request) {
             auto requestPath = request->path;
 
             if (std::regex_match(requestPath, indexRequestRegex)) {
@@ -47,20 +48,17 @@ public:
 
             auto resourceUrl = pathToStatic + requestPath;
 
-            ifstream resourceStream(resourceUrl.c_str());
-
-            if (resourceStream.good()) {
-                std::stringstream buffer;
-                string content;
-
-                buffer << resourceStream.rdbuf();
-                content = buffer.str();
-
-                *response << "HTTP/1.1 200 OK\r\nContent-Length: " << content.length() << "\r\n\r\n" << content;
-            }
-            else {
-                string content = "Could not open path " + request->path;
-                *response << "HTTP/1.1 400 Bad Request\r\nContent-Length: " << content.length() << "\r\n\r\n" << content;
+            try {
+                string fileContent = GetFile(resourceUrl);
+                *response << "HTTP/1.1 200 OK\r\nContent-Length: " << fileContent.length() << "\r\n\r\n" << fileContent;
+            } catch (string err) {
+                try {
+                    string indexFile = GetFile(pathToStatic + "/index.html");
+                    *response << "HTTP/1.1 200 OK\r\nContent-Length: " << indexFile.length() << "\r\n\r\n" << indexFile;
+                } catch(string err2) {
+                    string content = "Could not open path " + request->path;
+                    *response << "HTTP/1.1 400 Bad Request\r\nContent-Length: " << content.length() << "\r\n\r\n" << content;
+                }
             }
         };
     }

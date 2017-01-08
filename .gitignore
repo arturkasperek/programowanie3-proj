@@ -4,3 +4,5 @@
 npm-debug*
 facebook_dwa_zero
 .env
+/public/bundle.js
+/public/bundle.js.map
