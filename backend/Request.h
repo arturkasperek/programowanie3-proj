@@ -21,8 +21,33 @@ public:
 
         auto cookie = request->header.find("Cookie");
         if(cookie != request->header.end()) {
-            session.parseSessionString(request->header.find("Cookie")->second);
+            session.parseSessionString(cookie->second);
         }
+    }
+
+    string getHeader(string headerName) {
+        auto header = request->header.find(headerName);
+        if(header != request->header.end()) {
+            return header->second;
+        } else {
+            return "";
+        }
+    }
+
+    string getSessionValue(string key) {
+        return  session.getValue(key);
+    }
+
+    string getSessionSetCookie() {
+        return session.getSessionSetCookie();
+    }
+
+    void clearSession() {
+        session.clearSession();
+    }
+
+    void setSessionValue(string key, string value) {
+        session.setValue(key, value);
     }
 };
 

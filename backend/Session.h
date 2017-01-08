@@ -34,6 +34,33 @@ public:
 
         cout << "Nie okej" << endl;
     }
+
+    string getSessionSetCookie() {
+        string sessionSetCookie = "session=";
+
+        for(auto sessionPair : session) {
+            sessionSetCookie += sessionPair.first + ":" + sessionPair.second + ",";
+        }
+
+        return sessionSetCookie + "; Expires=Wed, 21 Oct 2017 07:28:00 GMT\r\n";
+    }
+
+    string getValue(string key) {
+        auto value = session.find(key);
+        if(value != session.end()) {
+            return value->second;
+        } else {
+            return "";
+        }
+    }
+
+    void setValue(string key, string value) {
+        session[key] = value;
+    }
+
+    void clearSession() {
+        session.clear();
+    }
 };
 
 #endif //SESSION_H

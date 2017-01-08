@@ -38,7 +38,7 @@ public:
     void serveStatic(std::string pathToStatic) {
         std::regex indexRequestRegex("/$");
 
-        server->resource["^/dupa$"]["GET"] = [pathToStatic, indexRequestRegex](std::shared_ptr<HttpResponse> response, std::shared_ptr<HttpRequest> request) {
+        server->resource["^/"]["GET"] = [pathToStatic, indexRequestRegex](std::shared_ptr<HttpResponse> response, std::shared_ptr<HttpRequest> request) {
             auto requestPath = request->path;
 
             if (std::regex_match(requestPath, indexRequestRegex)) {
@@ -65,21 +65,15 @@ public:
         };
     }
 
-
-    void get(std::string route, std::function<void(std::shared_ptr<Request>, std::shared_ptr<Response>)> callback) {
-        server->resource["^" + route + "$"]["GET"] = [&callback](std::shared_ptr<HttpResponse> httpResponse, std::shared_ptr<HttpRequest> httpRequest) {
+    void addRoute(std::string route, std::string methodName, std::function<void(std::shared_ptr<Request>, std::shared_ptr<Response>)> callback) {
+        server->resource["^" + route + "$"][methodName] = [callback](std::shared_ptr<HttpResponse> httpResponse, std::shared_ptr<HttpRequest> httpRequest) {
             std::shared_ptr<Request> request = std::make_shared<Request>(httpRequest);
             std::shared_ptr<Response> response = std::make_shared<Response>(httpResponse, []() {
                 cout << "Witam was ;)" << endl;
                 return "dupa test";
-            });
+            }, request);
 
             callback(request, response);
         };
-    }
-
-    template <class T>
-    void post(std::string route, T&& callback) {
-        server->resource["^" + route + "$"]["POST"] = callback;
     }
 };
