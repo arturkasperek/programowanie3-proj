@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ -d "build" ]; then
+  rm -rf build
+fi
+
+mkdir build
+cd build
+cmake ..
+make
+cd ..
+echo "Running program"
+./facebook_dwa_zero
